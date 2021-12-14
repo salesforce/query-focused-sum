@@ -1,5 +1,7 @@
 # Query-Focused Summarization
 
+Official code repository for "Exploring Neural Models for Query-Focused Summarization"
+
 ## Download and prepare data
 
 Coming soon
