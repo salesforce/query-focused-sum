@@ -2,6 +2,7 @@
 
 Official code repository for "Exploring Neural Models for Query-Focused Summarization"
 
+This is a work in progress. Expect additional updates.
 
 ## Running two-stage models
 
