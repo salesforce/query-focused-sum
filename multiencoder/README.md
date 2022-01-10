@@ -93,6 +93,10 @@ You can simply run [train.py](train.py), with the same arguments as the training
 * `do_predict`: Include this to run in predict/test mode
 * `train_file` and `validation_file`: Remove these
 * `test_file`: Set this to your test file path
+* `evaluation_strategy`: Remove
+* `load_best_model_at_end`: Remove
+* `save_strategy`: Remove
+* `logging_strategy`: Remove
 
 Keep the rest of the arguments, though you may optionally remove any that are training-specific (e.g. learning_rate)
 
