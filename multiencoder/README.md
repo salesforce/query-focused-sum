@@ -162,6 +162,10 @@ script be sure to update corresponding arguments in the test script (e.g. number
 
 #### SummEval rouge metric
 
+
 The [SummEval](https://github.com/Yale-LILY/SummEval) implementation uses the original PERL script for computing rouge.
- To run this you will need to replicate steps 3-5 from the [previous section](#reproducing-experiments).
+
+To run this, you will need to first run the test script above, and then additionally run
+ [`report_rouge.py`](../rouge/report_rouge.py) based on the generated predictions from the test script. You
+can see examples of this in steps 4-5 in the [Reproducing Experiments section](#reproducing-experiments).
 
