@@ -31,4 +31,3 @@ do
   --compute_rouge_for_train True \
   --seed $RUN &> ${NAME}_${RUN}.out
 done
-#  --metric_for_best_model rouge1_plus_rouge2 \
