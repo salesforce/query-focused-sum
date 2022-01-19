@@ -1,11 +1,28 @@
 # Segment Encoder
 
+NOTE: Run all of the following steps from `<project_dir>/multiencoder`.
+
+## Table of contents
+- [Installation](#installation)
+- [Reproducing QMSum experiments](#reproducing-qmsum-experiments)
+  * [1. Preprocess data](#1-preprocess-data)
+  * [2. Train models](#2-train-models)
+  * [3. Choose checkpoint for each run](#3-choose-checkpoint-for-each-run)
+  * [4. Generate predictions from selected checkpoints](#4-generate-predictions-from-selected-checkpoints)
+  * [5. Report rouge scores of all checkpoints](#5-report-rouge-scores-of-all-checkpoints)
+- [Running on your own datasets](#running-on-your-own-datasets)
+  * [1. Prepare data in appropriate format](#1-prepare-data-in-appropriate-format)
+  * [2. Train your model](#2-train-your-model)
+  * [3. Evaluate your model](#3-evaluate-your-model)
+    + [HuggingFace rouge metric (simpler)](#huggingface-rouge-metric--simpler-)
+    + [SummEval rouge metric](#summeval-rouge-metric)
+
 ## Installation
 ```
 pip install -r requirements.txt
 ``` 
 
-## Reproducing experiments
+## Reproducing QMSum experiments
 
 ### 1. Preprocess data
 To convert files to a format that can be used by the Segment Encoder, run the following:
