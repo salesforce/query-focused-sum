@@ -1,8 +1,9 @@
 # Exploring Neural Models for Query-Focused Summarization
 
 This is the official code repository for [Exploring Neural Models for Query-Focused Summarization](https://arxiv.org/abs/2112.07637)
-by Jesse Vig<sup>\*</sup>, Alexander R. Fabbri<sup>\*</sup>, Wojciech Kryściński<sup>\*</sup>, Chien-Sheng Wu, and Wenhao Liu
-(*equal contribution). 
+by [Jesse Vig](https://twitter.com/jesse_vig)<sup>\*</sup>, [Alexander R. Fabbri](https://twitter.com/alexfabbri4)<sup>\*</sup>,
+[Wojciech Kryściński](https://twitter.com/iam_wkr)<sup>\*</sup>, [Chien-Sheng Wu](https://twitter.com/jasonwu0731), and
+[Wenhao Liu](https://twitter.com/owenhaoliu) (*equal contribution). 
 
 We present code and instructions for reproducing the paper experiments and running the models against your own datasets.
 
