@@ -43,7 +43,7 @@ To [replicate](multiencoder/README.md#reproducing-qmsum-experiments) the QMSum e
 
 When referencing this repository, please cite [this paper](https://arxiv.org/abs/2112.07637):
 
-```
+```bibtex
 @misc{vig-etal-2021-exploring,
       title={Exploring Neural Models for Query-Focused Summarization}, 
       author={Jesse Vig and Alexander R. Fabbri and Wojciech Kry{\'s}ci{\'n}ski and Chien-Sheng Wu and Wenhao Liu},
