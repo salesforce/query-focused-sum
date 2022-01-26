@@ -85,15 +85,15 @@ We have provided checkpoints for our best performing QMSum-finetuned Segment Enc
 
 ### Downloading checkpoints
 
-We have included checkpoints for all 5 training runs of the model used in  the final evaluation, along with their performance on the **validation** set:
+We have included checkpoints for all 5 training runs of the model used in the final evaluation, along with their performance on the **validation** set:
 
 | Run       | ROUGE-1 | ROUGE-2 | ROUGE-L | Checkpoint |                                                                                                      
-|-----------|---------|----| ---  |-------------------------------------------------------------------------------------------------------------------|
-| 1 | 38.9233 | 13.0059 | 34.0773 | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-1.tar.gz) |
-| 2 | 38.5922 | 12.8341 | 33.9253 | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-2.tar.gz) |
-| 3 | 38.7211 | 13.0050 | 34.0436 | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-3.tar.gz) |
-| 4 | 38.2190 | 12.8834 | 33.7024 | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-4.tar.gz) |
-| 5 | 38.8005 | 12.7615 | 34.0154 | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-5.tar.gz) |
+|-----------|---------|---------|---------|-------------------------------------------------------------------------------------------------------------------|
+| 1 | 38.85   | 13.00   | 34.13   | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-1.tar.gz) |
+| 2 | 38.50   | 12.87   | 33.92   | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-2.tar.gz) |
+| 3 | 38.66   | 13.01   | 34.07   | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-3.tar.gz) |
+| 4 | 38.16   | 12.90   | 33.73   | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-4.tar.gz) |
+| 5 | 38.74   | 12.81   | 34.08   | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-5.tar.gz) |
 
 
 ### Using checkpoints
@@ -112,10 +112,10 @@ as follows to be consistent with the fine-tuning hyperparameters:
 
 (For an explanation of the command-line arguments, see [next section](#running-on-your-own-datasets).)
 
-### Example
+#### Example
 
-We have also included a complete example, below, for evaluating a checkpoint against the validation set.
-For this example, you will first need to perform 
+The example below demonstrates how to evaluate a checkpoint against the validation set.
+Note that you will first need to perform 
 Steps 1 and 2 from the [previous section](#reproducing-qmsum-experiments) to populate the `data/qmsum/preprocessed/` directory.
 
 ```bash
@@ -134,6 +134,9 @@ python train.py \
   --predict_with_generate \
   --prediction_path PATH_TO_PREDICTION_OUTPUT
 ```
+
+Note: the ROUGE scores obtained from the above script (based on Huggingface ROUGE implementation) may differ slightly 
+from those reported in the table above (based on SummEval ROUGE implementation, which is consistent with the paper). See discussion of these two implementations [below](#3-evaluate-your-model).
 
 ## Running on your own datasets
 
