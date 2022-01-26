@@ -3,8 +3,12 @@ Run all of the following steps from `<project_dir>/extractors`
 
 ### Installation
 ```
-pip install -r ../multiencoder/requirements.txt
+pip install -r ../requirements.txt
 ``` 
+
+### Preprocessing data
+To perform the preprocessing of QMSum necessary to reproduce the experiments, follow the instructions in the
+[preprocessing](../preprocessing/README.md) directory.
 
 ### Download RelReg training code
 ```

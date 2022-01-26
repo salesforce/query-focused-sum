@@ -9,7 +9,6 @@ We present code and instructions for reproducing the paper experiments and runni
 
 ## Table of contents
 - [Introduction](#introduction)
-- [Preprocessing data](#preprocessing-data)
 - [Two-stage models](#two-stage-models)
 - [Segment Encoder](#segment-encoder)
 - [Citation](#citation)
@@ -19,10 +18,6 @@ We present code and instructions for reproducing the paper experiments and runni
 Query-focused summarization (QFS) aims to produce summaries that answer particular questions of interest, enabling greater user control and personalization.
 In [our paper](https://arxiv.org/abs/2112.07637) we conduct a systematic exploration of neural approaches to QFS, considering two general classes of methods: two-stage extractive-abstractive solutions and end-to-end models.
 Within those categories, we investigate existing methods and present two model extensions that achieve state-of-the-art performance on the QMSum dataset  by a margin of up to 3.38 ROUGE-1, 3.72 ROUGE-2, and 3.28 ROUGE-L.
-
-## Preprocessing data
-To perform the preprocessing of QMSum necessary to reproduce the experiments, see the 
-[preprocessing](preprocessing/README.md) directory.
 
 ## Two-stage models
 

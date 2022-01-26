@@ -5,11 +5,16 @@ NOTE: Run all of the following steps from `<project_dir>/multiencoder`.
 ## Table of contents
 - [Installation](#installation)
 - [Reproducing QMSum experiments](#reproducing-qmsum-experiments)
-  * [1. Preprocess data](#1-preprocess-data)
-  * [2. Train models](#2-train-models)
-  * [3. Choose checkpoint for each run](#3-choose-checkpoint-for-each-run)
-  * [4. Generate predictions from selected checkpoints](#4-generate-predictions-from-selected-checkpoints)
-  * [5. Report rouge scores of all checkpoints](#5-report-rouge-scores-of-all-checkpoints)
+  * [1. Preprocess QMSum](#1-preprocess-qmsum)
+  * [2. Convert to Segment Encoder format](#2-convert-to-segment-encoder-format)
+  * [3. Train models](#3-train-models)
+  * [4. Choose checkpoint for each run](#4-choose-checkpoint-for-each-run)
+  * [5. Generate predictions from selected checkpoints](#5-generate-predictions-from-selected-checkpoints)
+  * [6. Report rouge scores of all checkpoints](#6-report-rouge-scores-of-all-checkpoints)
+- [Pretrained models](#pretrained-models)
+  * [Downloading checkpoints](#downloading-checkpoints)
+  * [Using checkpoints](#using-checkpoints)
+  * [Example](#example)
 - [Running on your own datasets](#running-on-your-own-datasets)
   * [1. Prepare data in appropriate format](#1-prepare-data-in-appropriate-format)
   * [2. Train your model](#2-train-your-model)
@@ -19,30 +24,35 @@ NOTE: Run all of the following steps from `<project_dir>/multiencoder`.
 
 ## Installation
 ```
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 ``` 
 
 ## Reproducing QMSum experiments
 
-### 1. Preprocess data
-To convert files to a format that can be used by the Segment Encoder, run the following:
+### 1. Preprocess QMSum
+
+To perform the preprocessing of QMSum necessary to reproduce the experiments, follow the instructions in the
+[preprocessing](../preprocessing/README.md) directory.
+
+### 2. Convert to Segment Encoder format
+To convert above files to a format that can be used by the Segment Encoder, run the following:
 ```
-python preprocess.py
+python convert_qmsum.py
 ```
 
 The output files will be in `data/qmsum/preprocessed`.
 
-### 2. Train models
+### 3. Train models
 
 See `scripts/train_qmsum_*.sh`
 
-### 3. Choose checkpoint for each run
+### 4. Choose checkpoint for each run
 
 `bash scripts/select_checkpoints.sh`. 
 
 Copies best checkpoint for each run (based on mean validation rouge) to `selected_checkpoint` directory.
 
-### 4. Generate predictions from selected checkpoints
+### 5. Generate predictions from selected checkpoints
 
 `bash scripts/predict_val.sh`
  
@@ -52,7 +62,7 @@ Writes out val predictions for all selected checkpoints to `selected_checkpoint/
  
 Writes out test predictions for all selected checkpoints to `selected_checkpoint/predictions.test`.
 
-### 5. Report rouge scores of all checkpoints
+### 6. Report rouge scores of all checkpoints
 
 `bash scripts/report_rouge_val.sh`
 
@@ -63,6 +73,67 @@ Reports mean rouge scores on validation set.
 Reports mean rouge scores on test set.
 
 Note that these last scripts may prompt you with a small number of additional install steps.
+
+## Pretrained models
+
+We have provided checkpoints for our best performing QMSum-finetuned Segment Encoder model as reported in our
+[paper](https://arxiv.org/pdf/2112.07637.pdf) (Table 5). The hyperparameters of note are: 
+* Input size: 16384
+* Segment length: 512
+* Segment overlap: 256
+* Initial checkpoint: Wikisum-pretrained
+
+### Downloading checkpoints
+
+We have included checkpoints for all 5 training runs of the model used in  the final evaluation, along with their performance on the **validation** set:
+
+| Run       | ROUGE-1 | ROUGE-2 | ROUGE-L | Checkpoint |                                                                                                      
+|-----------|---------|----| ---  |-------------------------------------------------------------------------------------------------------------------|
+| 1 | 38.9233 | 13.0059 | 34.0773 | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-1.tar.gz) |
+| 2 | 38.5922 | 12.8341 | 33.9253 | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-2.tar.gz) |
+| 3 | 38.7211 | 13.0050 | 34.0436 | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-3.tar.gz) |
+| 4 | 38.2190 | 12.8834 | 33.7024 | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-4.tar.gz) |
+| 5 | 38.8005 | 12.7615 | 34.0154 | [download](https://storage.googleapis.com/sfr-query-focused-sum-research/segenc-qmsum-16384-512-wikisum-5.tar.gz) |
+
+
+### Using checkpoints
+
+To use a checkpoint, first download/untar it and then point the `--model_name_or_path` command-line
+argument in [train.py](train.py) to the top-level directory of the checkpoint. (See the 
+[next section](#running-on-your-own-datasets) for examples of
+using [train.py](train.py) to train/evaluate a model.) When using our provided checkpoint, also be sure to set the following arguments
+as follows to be consistent with the fine-tuning hyperparameters:
+
+```bash
+--multiencoder_max_num_chunks 32 \
+--multiencoder_stride \
+--max_source_len 512
+```
+
+(For an explanation of the command-line arguments, see [next section](#running-on-your-own-datasets).)
+
+### Example
+
+We have also included a complete example, below, for evaluating a checkpoint against the validation set.
+For this example, you will first need to perform 
+Steps 1 and 2 from the [previous section](#reproducing-qmsum-experiments) to populate the `data/qmsum/preprocessed/` directory.
+
+```bash
+python train.py \
+  --do_predict \
+  --test_file data/qmsum/preprocessed/val.jsonl \
+  --model_name_or_path PATH_TO_CHECKPOINT \
+  --multiencoder_type bart \
+  --multiencoder_max_num_chunks 32 \
+  --multiencoder_stride \
+  --max_source_len 512 \
+  --output_dir PATH_TO_OUTPUT \
+  --generation_max_len 256 \
+  --val_max_target_length 256 \
+  --per_device_eval_batch_size 1 \
+  --predict_with_generate \
+  --prediction_path PATH_TO_PREDICTION_OUTPUT
+```
 
 ## Running on your own datasets
 
@@ -179,10 +250,9 @@ script be sure to update corresponding arguments in the test script (e.g. number
 
 #### SummEval rouge metric
 
-
 The [SummEval](https://github.com/Yale-LILY/SummEval) implementation uses the original PERL script for computing rouge.
 
 To run this, you will need to first run the test script above, and then additionally run
  [`report_rouge.py`](../rouge/report_rouge.py) based on the generated predictions from the test script. You
-can see examples of this in steps 4-5 in the [Reproducing Experiments section](#reproducing-qmsum-experiments).
+can see examples of this in steps 5-6 in the [Reproducing Experiments section](#reproducing-qmsum-experiments).
 
