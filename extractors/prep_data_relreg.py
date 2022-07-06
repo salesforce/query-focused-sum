@@ -26,7 +26,7 @@ if __name__ == "__main__":
                  "data", f'{split}.rouge.256.jsonl')
         else:
             fname = os.path.join(os.path.dirname( __file__ ), "..", \
-                "data", f'{split}-meetings.jsonl')
+                "data", f'{split}.rouge.jsonl')
         with open(fname) as f:
             for line in f:
                 meeting_data = json.loads(line)

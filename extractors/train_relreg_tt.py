@@ -23,7 +23,7 @@ def get_examples(split, do_chunks):
     if do_chunks:
         fname = os.path.join(os.path.dirname( __file__ ), "data", f"{split}.rouge.256.jsonl")
     else:
-        fname = os.path.join(os.path.dirname( __file__ ), "..", "data", f'{split}-meetings.jsonl')
+        fname = os.path.join(os.path.dirname( __file__ ), "..", "data", f'{split}.rouge.jsonl')
     with open(fname) as f:
         for line in f:
             meeting_data = json.loads(line)
@@ -35,7 +35,7 @@ def get_examples(split, do_chunks):
     if do_chunks:
         fname = os.path.join(os.path.dirname( __file__ ), "data", f"{split}.rouge.256.jsonl")
     else:
-        fname = os.path.join(os.path.dirname( __file__ ), "..", "data", f"{split}.jsonl")
+        fname = os.path.join(os.path.dirname( __file__ ), "..", "data", f"{split}.rouge.jsonl")
 
     totals = {"train": 1257, "val": 272, "test": 281}
     cur_examples = []

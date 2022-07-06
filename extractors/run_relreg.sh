@@ -3,7 +3,8 @@ $CHUNKS=$1
 $OUTPUT_DIR=$2
 
 
-# Convert data to format required for RelReg training and inference; 0 for utterance-level data
+# Add chunk/utterance-level ROUGE and convert data to format required for RelReg training and inference; 0 for utterance-level data.
+python add_rouge.py $CHUNKS
 python prep_data_relreg.py $CHUNKS
 
 # Train RelReg on utterance-level input
