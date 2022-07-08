@@ -81,7 +81,7 @@ We have provided checkpoints for our best performing QMSum-finetuned Segment Enc
 * Input size: 16384
 * Segment length: 512
 * Segment overlap: 256
-* Initial checkpoint: Wikisum-pretrained
+* Initial checkpoint: [Wikisum-pretrained](https://storage.googleapis.com/sfr-query-focused-sum-research/bart-wikisum.tar.gz)
 
 ### Downloading checkpoints
 
