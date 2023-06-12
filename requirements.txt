@@ -1,4 +1,4 @@
-transformers==4.11.3
+transformers==4.30.0
 torch==1.9.1
 datasets==1.13.2
 nltk==3.6.6
